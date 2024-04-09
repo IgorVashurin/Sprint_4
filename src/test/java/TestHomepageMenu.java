@@ -1,3 +1,4 @@
+import org.junit.Before;
 import sitepages.HomePageSamokat;
 import org.junit.After;
 import org.junit.Test;
@@ -37,8 +38,8 @@ public class TestHomepageMenu {
         };
     }
 
-    @Test
-    public void testMenuItems(){
+    @Before
+    public void setUp(){
         if(browserDriver.equals("Chrome")){
             System.setProperty("webdriver.chrome.driver", "drivers/chromedriver.exe");
             driver = new ChromeDriver(); //Драйвер для Chrome
@@ -47,7 +48,10 @@ public class TestHomepageMenu {
             driver = new FirefoxDriver(); //Драйвер для FireFox
         }
         driver.get(PAGE_URL); //Переходим на главную страницу приложения
+    }
 
+    @Test
+    public void testMenuItems(){
         //Создаем объект класса HomePage
         HomePageSamokat objHomePage = new HomePageSamokat(driver);
 
@@ -56,7 +60,6 @@ public class TestHomepageMenu {
 
         boolean result = objHomePage.testAllMenuItemsValues(textQuestion, textAnswer);
         assertTrue(result);
-
     }
 
     @After

@@ -1,3 +1,4 @@
+import org.junit.Before;
 import sitepages.HomePageSamokat;
 import sitepages.OrderPagesSamokat;
 import org.hamcrest.MatcherAssert;
@@ -56,8 +57,9 @@ public class TestOrder {
                         "Заказ оформлен", "Chrome", "header"},
         };
     }
-    @Test
-    public void testOrderFlow() {
+
+    @Before
+    public void setUp(){
         if(browserDriver.equals("Chrome")){
             System.setProperty("webdriver.chrome.driver", "drivers/chromedriver.exe");
             driver = new ChromeDriver(); //Драйвер для Chrome
@@ -65,8 +67,11 @@ public class TestOrder {
             System.setProperty("webdriver.gecko.driver","drivers/geckodriver.exe");
             driver = new FirefoxDriver(); //Драйвер для FireFox
         }
-
         driver.get(PAGE_URL); //Переходим на главную страницу приложения
+    }
+
+    @Test
+    public void testOrderFlow() {
         HomePageSamokat objHomePage = new HomePageSamokat(driver); //Создаем объект гласса главной страницы
         objHomePage.clickCookieButton(); //Кликаем на кнопку "Cookies"
         objHomePage.choseOrderButton(buttonPlace);
